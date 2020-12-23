@@ -1,6 +1,6 @@
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
 import { LoadTools } from '@/domain/usecases/load-tools'
-import { noContent, ok } from '@/presentation/helpers'
+import { noContent, ok, serverError } from '@/presentation/helpers'
 
 export class LoadToolsController implements Controller {
   constructor (
@@ -8,7 +8,11 @@ export class LoadToolsController implements Controller {
   ) {}
 
   async handle (request: HttpRequest): Promise<HttpResponse> {
-    const tools = await this.loadTools.load(request.query?.tag)
-    return tools.length ? ok(tools) : noContent()
+    try {
+      const tools = await this.loadTools.load(request.query?.tag)
+      return tools.length ? ok(tools) : noContent()
+    } catch (error) {
+      return serverError()
+    }
   }
 }
