@@ -1,5 +1,5 @@
 import { LoadToolsController } from '@/presentation/controllers/load-tools-controller'
-import { ok } from '@/presentation/helpers'
+import { noContent, ok } from '@/presentation/helpers'
 import { HttpRequest } from '@/presentation/protocols'
 import { LoadToolsSpy } from '@/tests/presentation/mocks/mock-tool'
 
@@ -34,5 +34,12 @@ describe('LoadTools Controller', () => {
     const { sut, loadToolsSpy } = makeSut()
     const httpResponse = await sut.handle(makeRequest())
     expect(httpResponse).toEqual(ok(loadToolsSpy.result))
+  })
+
+  test('Should return 204 if LoadTools returns an empty list', async () => {
+    const { sut, loadToolsSpy } = makeSut()
+    loadToolsSpy.result = []
+    const httpResponse = await sut.handle(makeRequest())
+    expect(httpResponse).toEqual(noContent())
   })
 })
