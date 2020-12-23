@@ -1,5 +1,5 @@
 import { LoadToolsController } from '@/presentation/controllers/load-tools-controller'
-import { noContent, ok } from '@/presentation/helpers'
+import { noContent, ok, serverError } from '@/presentation/helpers'
 import { HttpRequest } from '@/presentation/protocols'
 import { LoadToolsSpy } from '@/tests/presentation/mocks/mock-tool'
 
@@ -41,5 +41,12 @@ describe('LoadTools Controller', () => {
     loadToolsSpy.result = []
     const httpResponse = await sut.handle(makeRequest())
     expect(httpResponse).toEqual(noContent())
+  })
+
+  test('Should return 500 if LoadTools throws', async () => {
+    const { sut, loadToolsSpy } = makeSut()
+    jest.spyOn(loadToolsSpy, 'load').mockImplementationOnce(() => { throw new Error() })
+    const httpResponse = await sut.handle(makeRequest())
+    expect(httpResponse).toEqual(serverError())
   })
 })
