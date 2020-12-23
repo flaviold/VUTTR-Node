@@ -7,4 +7,4 @@
 1. ✅ Retorna **200** com a lista de ferramentas
 
 > ## Exceções
-1. ⛔ Retorna 500 na ocorrencia de um erro na busca das ferramentas
+1. ✅ Retorna 500 na ocorrencia de um erro na busca das ferramentas
