@@ -1,4 +1,5 @@
 import { LoadToolsController } from '@/presentation/controllers/load-tools-controller'
+import { ok } from '@/presentation/helpers'
 import { HttpRequest } from '@/presentation/protocols'
 import { LoadToolsSpy } from '@/tests/presentation/mocks/mock-tool'
 
@@ -27,5 +28,11 @@ describe('LoadTools Controller', () => {
     const { sut, loadToolsSpy } = makeSut()
     await sut.handle(makeRequest())
     expect(loadToolsSpy.tag).toEqual(['any_tag'])
+  })
+
+  test('Should return 200 if LoadTools returns a list of tools', async () => {
+    const { sut, loadToolsSpy } = makeSut()
+    const httpResponse = await sut.handle(makeRequest())
+    expect(httpResponse).toEqual(ok(loadToolsSpy.result))
   })
 })
