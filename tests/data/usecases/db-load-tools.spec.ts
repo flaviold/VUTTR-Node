@@ -55,4 +55,12 @@ describe('DbLoadTools', () => {
     await sut.load(['any_tag'])
     expect(loadByTagsSpy).toHaveBeenCalledWith(['any_tag'])
   })
+
+  test('Should return a list of tools on success', async () => {
+    const { sut, loadToolsRepositorySpy, loadToolByTagsRepositorySpy } = makeSut()
+    let tools = await sut.load()
+    expect(tools).toBe(loadToolsRepositorySpy.result)
+    tools = await sut.load('any_tag')
+    expect(tools).toBe(loadToolByTagsRepositorySpy.result)
+  })
 })
