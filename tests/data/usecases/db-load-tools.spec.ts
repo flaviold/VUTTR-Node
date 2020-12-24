@@ -63,4 +63,18 @@ describe('DbLoadTools', () => {
     tools = await sut.load('any_tag')
     expect(tools).toBe(loadToolByTagsRepositorySpy.result)
   })
+
+  test('Should throw if LoadToolsRepository throws', async () => {
+    const { sut, loadToolsRepositorySpy } = makeSut()
+    jest.spyOn(loadToolsRepositorySpy, 'load').mockImplementationOnce(() => { throw new Error() })
+    const promise = sut.load()
+    await expect(promise).rejects.toThrow()
+  })
+
+  test('Should throw if LoadToolByTagsRepository throws', async () => {
+    const { sut, loadToolByTagsRepositorySpy } = makeSut()
+    jest.spyOn(loadToolByTagsRepositorySpy, 'loadByTags').mockImplementationOnce(() => { throw new Error() })
+    const promise = sut.load('any_tag')
+    await expect(promise).rejects.toThrow()
+  })
 })
