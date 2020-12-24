@@ -1,5 +1,12 @@
 # **Listar Ferramentas**
 
+> ## Camadas
+1. ⛔ Composição
+1. ✅ LoadToolsController
+1. ✅ LoadTools
+1. ⛔ LoadToolsRepository
+1. ⛔ LoadToolByTagsRepository
+
 > ## Fluxo padrão
 1. ⛔ Recebe uma requisição do tipo **GET** na rota **/api/tools**
 1. ⛔ Caso tenha **tag** nos parâmetros de **Query** filtra pelas tags passadas
