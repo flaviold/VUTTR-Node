@@ -46,4 +46,13 @@ describe('DbLoadTools', () => {
     await sut.load()
     expect(loadByTagsSpy).toHaveBeenCalledTimes(0)
   })
+
+  test('Should call LoadToolByTagsRepository with correct tags', async () => {
+    const { sut, loadToolByTagsRepositorySpy } = makeSut()
+    const loadByTagsSpy = jest.spyOn(loadToolByTagsRepositorySpy, 'loadByTags')
+    await sut.load('any_tag')
+    expect(loadByTagsSpy).toHaveBeenCalledWith(['any_tag'])
+    await sut.load(['any_tag'])
+    expect(loadByTagsSpy).toHaveBeenCalledWith(['any_tag'])
+  })
 })
