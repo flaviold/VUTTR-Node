@@ -9,7 +9,7 @@ export class DbLoadTools implements LoadTools {
   ) {}
 
   async load (tag?: string | string[]): Promise<ToolModel[]> {
-    tag ? await this.loadToolByTagsRepository.loadByTags(typeof tag === 'string' ? [tag] : tag) : await this.loadToolsRepository.load()
-    return []
+    const tools = tag ? await this.loadToolByTagsRepository.loadByTags(typeof tag === 'string' ? [tag] : tag) : await this.loadToolsRepository.load()
+    return tools
   }
 }
