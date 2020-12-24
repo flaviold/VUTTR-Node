@@ -22,4 +22,11 @@ describe('DbLoadTools', () => {
     await sut.load()
     expect(loadSpy).toHaveBeenCalledTimes(1)
   })
+
+  test('Should not call LoadToolsRepository if tag is provided', async () => {
+    const { sut, loadToolsRepository } = makeSut()
+    const loadSpy = jest.spyOn(loadToolsRepository, 'load')
+    await sut.load('any_tag')
+    expect(loadSpy).toHaveBeenCalledTimes(0)
+  })
 })
