@@ -28,6 +28,8 @@ describe('LoadTools Controller', () => {
     const { sut, loadToolsSpy } = makeSut()
     await sut.handle(makeRequest())
     expect(loadToolsSpy.tag).toEqual(['any_tag'])
+    await sut.handle({})
+    expect(loadToolsSpy.tag).toBeFalsy()
   })
 
   test('Should return 200 if LoadTools returns a list of tools', async () => {
