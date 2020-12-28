@@ -1,6 +1,6 @@
 # **VUTTR**
 
-VUTTR (Very Useful Tools to Remenber) é um repositório de ferramentas úteis contento seu nome, descrição, link e tags.
+VUTTR (Very Useful Tools to Remenber) é um repositório de ferramentas úteis contendo seu nome, descrição, link e tags.
 
 Esta API faz parte do desafio Back-end da [BossaBox](https://bossabox.com/para-empresas). Ela foi construida usando o Node + Typescript + Express + MongoDB.
 
