@@ -1,31 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "outDir": "dist",
+    "module": "commonjs",
+    "target": "es2019",
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "jsx": "react",
-    "rootDir": "src",
+    "sourceMap": true,
+    "rootDirs": ["src", "tests"],
     "baseUrl": "src",
     "paths": {
       "@/tests/*": ["../tests/*"],
       "@/*": ["*"]
-    },
-    "allowJs": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "noEmit": true
+    }
   },
-  "include": [
-    "src",
-    "tests"
-  ]
+  "include": ["src", "tests"],
+  "exclude": []
 }
