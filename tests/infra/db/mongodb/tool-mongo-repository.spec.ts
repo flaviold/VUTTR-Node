@@ -36,4 +36,18 @@ describe('ToolMongoRepository', () => {
       expect(tools[0].tags).toEqual(addTools[0].tags)
     })
   })
+
+  describe('loadByTags()', () => {
+    test('Should return all tools with the provided tags', async () => {
+      const sut = makeSut()
+      await toolCollection.insertMany(addTools)
+      const tools = await sut.loadByTags(['node'])
+      expect(tools.length).toBe(2)
+      expect(tools[0].id).toBeTruthy()
+      expect(tools[0].title).toBe(addTools[1].title)
+      expect(tools[0].link).toBe(addTools[1].link)
+      expect(tools[0].description).toBe(addTools[1].description)
+      expect(tools[0].tags).toEqual(addTools[1].tags)
+    })
+  })
 })
