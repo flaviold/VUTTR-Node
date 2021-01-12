@@ -1,4 +1,5 @@
 import { AddToolController } from '@/presentation/controllers/add-tool-controller'
+import { badRequest } from '@/presentation/helpers'
 import { HttpRequest } from '@/presentation/protocols'
 import { AddToolSpy, ValidationSpy } from '@/tests/presentation/mocks'
 
@@ -39,6 +40,13 @@ describe('AddTool Controller', () => {
     const { sut, validationSpy } = makeSut()
     await sut.handle(makeRequest())
     expect(validationSpy.input).toEqual(makeRequest().body)
+  })
+
+  test('Should return 400 if Validation returns an error', async () => {
+    const { sut, validationSpy } = makeSut()
+    validationSpy.error = new Error()
+    const httpResponse = await sut.handle(makeRequest())
+    expect(httpResponse).toEqual(badRequest(new Error()))
   })
 
   test('Should call AddTool with correct values', async () => {
