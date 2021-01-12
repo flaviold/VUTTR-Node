@@ -1,5 +1,6 @@
 export type HttpRequest = {
   query?: any
+  body?: any
 }
 
 export type HttpResponse = {
