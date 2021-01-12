@@ -1,5 +1,6 @@
 import { AddTool } from '@/domain/usecases'
 import { Controller, HttpRequest, HttpResponse, Validation } from '@/presentation/protocols'
+import { badRequest } from '@/presentation/helpers'
 
 export class AddToolController implements Controller {
   constructor (
@@ -8,7 +9,10 @@ export class AddToolController implements Controller {
   ) {}
 
   async handle (request: HttpRequest): Promise<HttpResponse> {
-    this.validation.validate(request.body)
+    const error = this.validation.validate(request.body)
+    if (error) {
+      return badRequest(error)
+    }
     await this.addTool.add(request.body)
     return null
   }
