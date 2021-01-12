@@ -14,9 +14,10 @@ export class LoadToolsSpy implements LoadTools {
 
 export class AddToolSpy implements AddTool {
   tool?: AddToolModel
+  result: ToolModel = makeTools()[0]
 
   async add (toolData: AddToolModel): Promise<ToolModel> {
     this.tool = toolData
-    return null
+    return this.result
   }
 }

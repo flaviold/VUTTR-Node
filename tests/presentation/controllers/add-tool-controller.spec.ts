@@ -1,5 +1,5 @@
 import { AddToolController } from '@/presentation/controllers/add-tool-controller'
-import { badRequest, serverError } from '@/presentation/helpers'
+import { badRequest, created, serverError } from '@/presentation/helpers'
 import { HttpRequest } from '@/presentation/protocols'
 import { AddToolSpy, ValidationSpy } from '@/tests/presentation/mocks'
 
@@ -60,5 +60,11 @@ describe('AddTool Controller', () => {
     jest.spyOn(addToolSpy, 'add').mockImplementationOnce(() => { throw new Error() })
     const httpResponse = await sut.handle(makeRequest())
     expect(httpResponse).toEqual(serverError())
+  })
+
+  test('Should return 201 on success', async () => {
+    const { sut, addToolSpy } = makeSut()
+    const httpResponse = await sut.handle(makeRequest())
+    expect(httpResponse).toEqual(created(addToolSpy.result))
   })
 })
