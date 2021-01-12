@@ -1,6 +1,6 @@
 import { AddTool } from '@/domain/usecases'
 import { Controller, HttpRequest, HttpResponse, Validation } from '@/presentation/protocols'
-import { badRequest, serverError } from '@/presentation/helpers'
+import { badRequest, created, serverError } from '@/presentation/helpers'
 
 export class AddToolController implements Controller {
   constructor (
@@ -14,8 +14,8 @@ export class AddToolController implements Controller {
       if (error) {
         return badRequest(error)
       }
-      await this.addTool.add(request.body)
-      return null
+      const tool = await this.addTool.add(request.body)
+      return created(tool)
     } catch {
       return serverError()
     }
