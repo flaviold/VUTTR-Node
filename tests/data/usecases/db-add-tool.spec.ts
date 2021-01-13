@@ -37,6 +37,13 @@ describe('DbAddTool', () => {
     expect(addToolRepositorySpy.toolData).toEqual(tool)
   })
 
+  test('Should throw if AddToolRepository throws', async () => {
+    const { sut, addToolRepositorySpy } = makeSut()
+    jest.spyOn(addToolRepositorySpy, 'add').mockImplementationOnce(() => { throw new Error() })
+    const promise = sut.add(makeAddTool())
+    await expect(promise).rejects.toThrow()
+  })
+
   test('Should return the added tool on success', async () => {
     const { sut } = makeSut()
     const addTool = makeAddTool()
