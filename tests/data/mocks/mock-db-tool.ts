@@ -1,5 +1,6 @@
-import { LoadToolByTagsRepository, LoadToolsRepository } from '@/data/protocols'
+import { AddToolRepository, LoadToolByTagsRepository, LoadToolsRepository } from '@/data/protocols'
 import { ToolModel } from '@/domain/models/tool'
+import { AddToolModel } from '@/domain/usecases'
 import { makeTools } from '@/tests/domain/mocks/mock-tool'
 
 export class LoadToolsRepositorySpy implements LoadToolsRepository {
@@ -17,5 +18,17 @@ export class LoadToolByTagsRepositorySpy implements LoadToolByTagsRepository {
   async loadByTags (tags: string[]): Promise<ToolModel[]> {
     this.tags = tags
     return this.result
+  }
+}
+
+export class AddToolRepositorySpy implements AddToolRepository {
+  toolData: AddToolModel
+
+  async add (toolData: AddToolModel): Promise<ToolModel> {
+    this.toolData = toolData
+    return {
+      id: 'any_id',
+      ...toolData
+    }
   }
 }
