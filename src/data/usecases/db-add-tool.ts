@@ -8,7 +8,7 @@ export class DbAddTool implements AddTool {
   ) {}
 
   async add (toolData: AddToolModel): Promise<ToolModel> {
-    await this.addToolRepository.add(toolData)
-    return null
+    const tool = await this.addToolRepository.add(toolData)
+    return tool
   }
 }
