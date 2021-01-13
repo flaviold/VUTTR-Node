@@ -36,4 +36,15 @@ describe('DbAddTool', () => {
     await sut.add(tool)
     expect(addToolRepositorySpy.toolData).toEqual(tool)
   })
+
+  test('Should return the added tool on success', async () => {
+    const { sut } = makeSut()
+    const addTool = makeAddTool()
+    const tool = await sut.add(addTool)
+    expect(tool.id).toBeTruthy()
+    expect(tool.title).toBe(addTool.title)
+    expect(tool.link).toBe(addTool.link)
+    expect(tool.description).toBe(addTool.description)
+    expect(tool.tags).toEqual(addTool.tags)
+  })
 })
