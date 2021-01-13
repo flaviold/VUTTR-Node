@@ -4,7 +4,7 @@
 1. ⛔ Composição
 1. ⛔ AddToolValidator
 1. ✅ AddToolController
-1. ⛔ AddTool
+1. ✅ AddTool
 1. ⛔ AddToolRepository
 
 > ## Fluxo padrão
