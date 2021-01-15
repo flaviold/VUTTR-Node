@@ -1,7 +1,7 @@
 import { Collection } from 'mongodb'
 import { MongoHelper } from '@/infra/db/mongodb/mongo-helper'
 import { ToolMongoRepository } from '@/infra/db/mongodb/tool-mongo-repository'
-import { addTools } from '@/tests/domain/mocks/mock-tool'
+import { addTools, makeAddTool } from '@/tests/domain/mocks/mock-tool'
 
 let toolCollection: Collection
 
@@ -40,14 +40,24 @@ describe('ToolMongoRepository', () => {
   describe('loadByTags()', () => {
     test('Should return all tools with the provided tags', async () => {
       const sut = makeSut()
+      addTools[0].tags.push('node')
+      addTools[1].tags.push('node')
       await toolCollection.insertMany(addTools)
       const tools = await sut.loadByTags(['node'])
       expect(tools.length).toBe(2)
-      expect(tools[0].id).toBeTruthy()
-      expect(tools[0].title).toBe(addTools[1].title)
-      expect(tools[0].link).toBe(addTools[1].link)
-      expect(tools[0].description).toBe(addTools[1].description)
-      expect(tools[0].tags).toEqual(addTools[1].tags)
+    })
+  })
+
+  describe('add()', () => {
+    test('Should add a tool on success', async () => {
+      const sut = makeSut()
+      const addTool = makeAddTool()
+      await sut.add(addTool)
+      const [tool] = await toolCollection.find({}).toArray()
+      expect(tool.title).toBe(addTool.title)
+      expect(tool.link).toBe(addTool.link)
+      expect(tool.description).toBe(addTool.description)
+      expect(tool.tags).toEqual(addTool.tags)
     })
   })
 })
