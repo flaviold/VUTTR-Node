@@ -5,12 +5,12 @@
 1. ⛔ AddToolValidator
 1. ✅ AddToolController
 1. ✅ AddTool
-1. ⛔ AddToolRepository
+1. ✅ AddToolRepository
 
 > ## Fluxo padrão
 1. ⛔ Recebe uma requisição do tipo **POST** na rota **/api/tools**
 1. ⛔ Valida se existe os campos **title**, **link** e **description**
-1. ⛔ Cria uma ferramenta com os dados fornecidos
+1. ✅ Cria uma ferramenta com os dados fornecidos
 1. ✅ Retorna **201** com a ferramenta criada
 
 > ## Exceções
