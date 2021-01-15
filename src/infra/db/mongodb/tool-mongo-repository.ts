@@ -18,7 +18,7 @@ export class ToolMongoRepository implements LoadToolsRepository, LoadToolByTagsR
 
   async add (toolData: AddToolModel): Promise<ToolModel> {
     const toolCollection = await MongoHelper.getCollection('tools')
-    await toolCollection.insertOne(toolData)
-    return null
+    const tool = (await toolCollection.insertOne(toolData)).ops[0]
+    return MongoHelper.map(tool)
   }
 }
