@@ -1,5 +1,5 @@
 import { ToolModel } from '@/domain/models/tool'
-import { AddToolModel } from '../usecases'
+import { AddToolModel } from '@/domain/usecases'
 
 import faker from 'faker'
 

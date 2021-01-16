@@ -1,6 +1,6 @@
 import { Collection } from 'mongodb'
-import { MongoHelper } from '@/infra/db/mongodb/mongo-helper'
-import { ToolMongoRepository } from '@/infra/db/mongodb/tool-mongo-repository'
+import { MongoHelper, ToolMongoRepository } from '@/infra/db/mongodb'
+
 import { addTools, makeAddTool } from '@/tests/domain/mocks/mock-tool'
 
 let toolCollection: Collection

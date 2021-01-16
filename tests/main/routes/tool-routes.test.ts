@@ -1,5 +1,5 @@
 import app from '@/main/config/app'
-import { MongoHelper } from '@/infra/db/mongodb/mongo-helper'
+import { MongoHelper } from '@/infra/db/mongodb'
 import { addTools } from '@/tests/domain/mocks/mock-tool'
 
 import { Collection } from 'mongodb'

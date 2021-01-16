@@ -1,6 +1,6 @@
 import { makeAddToolValidation } from '@/main/factories/controllers'
-import { AddToolController } from '@/presentation/controllers/add-tool-controller'
-import { Controller } from '@/presentation'
+import { AddToolController } from '@/presentation/controllers'
+import { Controller } from '@/presentation/protocols'
 import { makeDbAddTool } from '@/main/factories/usecases'
 
 export const makeAddToolController = (): Controller => {

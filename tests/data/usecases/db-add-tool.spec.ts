@@ -1,4 +1,4 @@
-import { DbAddTool } from '@/data/usecases/db-add-tool'
+import { DbAddTool } from '@/data/usecases'
 import { AddToolModel } from '@/domain/usecases'
 import { AddToolRepositorySpy } from '@/tests/data/mocks/mock-db-tool'
 

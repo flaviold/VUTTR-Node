@@ -1,5 +1,5 @@
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
-import { LoadTools } from '@/domain/usecases/load-tools'
+import { LoadTools } from '@/domain/usecases'
 import { noContent, ok, serverError } from '@/presentation/helpers'
 
 export class LoadToolsController implements Controller {

@@ -1,4 +1,4 @@
-import { DbLoadTools } from '@/data/usecases/db-load-tools'
+import { DbLoadTools } from '@/data/usecases'
 import { LoadToolByTagsRepositorySpy, LoadToolsRepositorySpy } from '@/tests/data/mocks/mock-db-tool'
 
 interface SutTypes {

@@ -1,4 +1,4 @@
-import { AddToolController } from '@/presentation/controllers/add-tool-controller'
+import { AddToolController } from '@/presentation/controllers'
 import { badRequest, created, serverError } from '@/presentation/helpers'
 import { HttpRequest } from '@/presentation/protocols'
 import { AddToolSpy, ValidationSpy } from '@/tests/presentation/mocks'

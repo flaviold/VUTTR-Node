@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { adaptRoute } from '@/main/adapters/express/express-route-adapter'
-import { makeAddToolController, makeLoadToolsController } from '@/main/factories'
+import { makeAddToolController, makeLoadToolsController } from '@/main/factories/controllers'
 
 export default (router: Router): void => {
   router.get('/tools', adaptRoute(makeLoadToolsController()))

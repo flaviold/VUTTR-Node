@@ -1,5 +1,5 @@
 import { ToolModel } from '@/domain/models/tool'
-import { LoadTools } from '@/domain/usecases/load-tools'
+import { LoadTools } from '@/domain/usecases'
 import { LoadToolByTagsRepository, LoadToolsRepository } from '@/data/protocols'
 
 export class DbLoadTools implements LoadTools {
