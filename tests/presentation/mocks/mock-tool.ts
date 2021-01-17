@@ -1,5 +1,5 @@
 import { ToolModel } from '@/domain/models/tool'
-import { AddTool, AddToolModel, LoadTools } from '@/domain/usecases'
+import { AddTool, AddToolModel, LoadTools, RemoveTool } from '@/domain/usecases'
 import { makeTools } from '@/tests/domain/mocks/mock-tool'
 
 export class LoadToolsSpy implements LoadTools {
@@ -19,5 +19,13 @@ export class AddToolSpy implements AddTool {
   async add (toolData: AddToolModel): Promise<ToolModel> {
     this.tool = toolData
     return this.result
+  }
+}
+
+export class RemoveToolSpy implements RemoveTool {
+  id: string
+
+  async remove (id: string): Promise<void> {
+    this.id = id
   }
 }
