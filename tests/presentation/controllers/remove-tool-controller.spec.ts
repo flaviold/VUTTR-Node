@@ -1,5 +1,5 @@
 import { RemoveToolController } from '@/presentation/controllers'
-import { ValidationSpy } from '@/tests/presentation/mocks'
+import { RemoveToolSpy, ValidationSpy } from '@/tests/presentation/mocks'
 import { HttpRequest } from '@/presentation/protocols'
 import { badRequest } from '@/presentation/helpers'
 
@@ -14,14 +14,17 @@ const makeRequest = (): HttpRequest => ({
 interface SutTypes {
   sut: RemoveToolController
   validationSpy: ValidationSpy
+  removeToolSpy: RemoveToolSpy
 }
 
 const makeSut = (): SutTypes => {
+  const removeToolSpy = new RemoveToolSpy()
   const validationSpy = new ValidationSpy()
-  const sut = new RemoveToolController(validationSpy)
+  const sut = new RemoveToolController(validationSpy, removeToolSpy)
   return {
     sut,
-    validationSpy
+    validationSpy,
+    removeToolSpy
   }
 }
 
@@ -38,5 +41,12 @@ describe('RemoveToolController', () => {
     validationSpy.error = new Error()
     const httpResponse = await sut.handle(makeRequest())
     expect(httpResponse).toEqual(badRequest(new Error()))
+  })
+
+  test('Should call RemoveTool with correct id', async () => {
+    const { sut, removeToolSpy } = makeSut()
+    const httpRequest = makeRequest()
+    await sut.handle(httpRequest)
+    expect(removeToolSpy.id).toEqual(httpRequest.params.id)
   })
 })
