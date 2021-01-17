@@ -1,7 +1,7 @@
 import { RemoveToolController } from '@/presentation/controllers'
 import { RemoveToolSpy, ValidationSpy } from '@/tests/presentation/mocks'
 import { HttpRequest } from '@/presentation/protocols'
-import { badRequest } from '@/presentation/helpers'
+import { badRequest, serverError } from '@/presentation/helpers'
 
 import faker from 'faker'
 
@@ -48,5 +48,12 @@ describe('RemoveToolController', () => {
     const httpRequest = makeRequest()
     await sut.handle(httpRequest)
     expect(removeToolSpy.id).toEqual(httpRequest.params.id)
+  })
+
+  test('Should return 500 if RemoveTool throws', async () => {
+    const { sut, removeToolSpy } = makeSut()
+    jest.spyOn(removeToolSpy, 'remove').mockImplementationOnce(() => { throw new Error() })
+    const httpResponse = await sut.handle(makeRequest())
+    expect(httpResponse).toEqual(serverError())
   })
 })
