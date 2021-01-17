@@ -1,5 +1,5 @@
 import { Controller, HttpRequest, HttpResponse, Validation } from '@/presentation/protocols'
-import { badRequest, serverError } from '@/presentation/helpers'
+import { badRequest, noContent, serverError } from '@/presentation/helpers'
 import { RemoveTool } from '@/domain/usecases'
 
 export class RemoveToolController implements Controller {
@@ -16,7 +16,7 @@ export class RemoveToolController implements Controller {
       }
       const { id } = request.params
       await this.removeTool.remove(id)
-      return null
+      return noContent()
     } catch {
       return serverError()
     }
