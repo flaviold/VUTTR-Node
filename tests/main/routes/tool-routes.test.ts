@@ -65,4 +65,23 @@ describe('Tool Routes', () => {
       expect(tool.tags).toEqual(addTool.tags)
     })
   })
+
+  describe('DELETE /tools/:id', () => {
+    test('Should return 204 after remove the tool', async () => {
+      const addTool = {
+        title: faker.random.word(),
+        description: faker.random.words(),
+        link: faker.internet.url(),
+        tags: [
+          faker.random.word(),
+          faker.random.word(),
+          faker.random.word()
+        ]
+      }
+      const [{ _id }] = (await toolCollection.insertOne(addTool)).ops
+      await request(app)
+        .delete(`/tools/${_id}`)
+        .expect(204)
+    })
+  })
 })
