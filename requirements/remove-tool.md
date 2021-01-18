@@ -4,7 +4,7 @@
 1. ⛔ Composição
 1. ⛔ RemoveToolValidator
 1. ✅ RemoveToolController
-1. ⛔ RemoveTool
+1. ✅ RemoveTool
 1. ⛔ RemoveToolRepository
 
 > ## Fluxo Padrão
