@@ -11,7 +11,7 @@ No seu desenvolvimento foi utilizado [TDD](https://en.wikipedia.org/wiki/Test-dr
 1. ✅ Deve haver uma rota para listar todas as ferramentas cadastradas
 1. ✅ Deve ser possível filtrar ferramentas utilizando uma busca por tag
 1. ✅ Deve haver uma rota para cadastrar uma nova ferramenta
-1. ⛔ O usuário deve poder remover uma ferramenta por ID
+1. ✅ O usuário deve poder remover uma ferramenta por ID
 
 Os Endpoints requeridos são listados [aqui](./requirements/index.md)
 
