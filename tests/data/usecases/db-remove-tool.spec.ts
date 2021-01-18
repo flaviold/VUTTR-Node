@@ -24,4 +24,11 @@ describe('DbRemoveTool', () => {
     await sut.remove(id)
     expect(removeToolRepositorySpy.id).toBe(id)
   })
+
+  test('Should throw if RemoveToolRepository throws', async () => {
+    const { sut, removeToolRepositorySpy } = makeSut()
+    jest.spyOn(removeToolRepositorySpy, 'remove').mockImplementationOnce(() => { throw new Error() })
+    const promise = sut.remove(faker.random.uuid())
+    await expect(promise).rejects.toThrow()
+  })
 })
