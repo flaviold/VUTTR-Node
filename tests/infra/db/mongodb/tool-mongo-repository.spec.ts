@@ -71,4 +71,16 @@ describe('ToolMongoRepository', () => {
       expect(tool.tags).toEqual(addTool.tags)
     })
   })
+
+  describe('remove()', () => {
+    test('Should remove the tool on success', async () => {
+      const sut = makeSut()
+      const [tool] = (await toolCollection.insertOne(makeAddTool())).ops
+      let count = await toolCollection.find({}).count()
+      expect(count).toBe(1)
+      await sut.remove(tool._id)
+      count = await toolCollection.find({}).count()
+      expect(count).toBe(0)
+    })
+  })
 })
