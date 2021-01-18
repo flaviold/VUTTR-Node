@@ -1,4 +1,4 @@
-import { AddToolRepository, LoadToolByTagsRepository, LoadToolsRepository } from '@/data/protocols'
+import { AddToolRepository, LoadToolByTagsRepository, LoadToolsRepository, RemoveToolRepository } from '@/data/protocols'
 import { ToolModel } from '@/domain/models/tool'
 import { AddToolModel } from '@/domain/usecases'
 import { makeTools } from '@/tests/domain/mocks/mock-tool'
@@ -30,5 +30,13 @@ export class AddToolRepositorySpy implements AddToolRepository {
       id: 'any_id',
       ...toolData
     }
+  }
+}
+
+export class RemoveToolRepositorySpy implements RemoveToolRepository {
+  id: string
+
+  async remove (id: string): Promise<void> {
+    this.id = id
   }
 }
