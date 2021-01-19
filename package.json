@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "up": "yarn build && docker-compose up -d",
+    "down": "docker-compose down",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests",
     "test:unit": "yarn test --watch -c jest-unit-config.js",
@@ -53,6 +55,9 @@
     "express": "^4.17.1",
     "module-alias": "^2.2.2",
     "mongodb": "^3.6.3"
+  },
+  "engines": {
+    "node": "14.x"
   },
   "_moduleAliases": {
     "@": "dist"

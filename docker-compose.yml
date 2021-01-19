@@ -1,0 +1,23 @@
+version: "3"
+services:
+  mongo:
+    container_name: mongo-vuttr
+    image: mongo:4.4
+    restart: always
+    volumes:
+      - ./data/:/data/db
+    ports:
+      - "27017:27017"
+  api:
+    container_name: api-vuttr
+    image: node:14
+    working_dir: /usr/src/vuttr
+    restart: always
+    command: bash -c "yarn install --production=true && yarn start"
+    volumes:
+      - ./dist/:/usr/src/vuttr/dist/
+      - ./package.json:/usr/src/vuttr/package.json
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
