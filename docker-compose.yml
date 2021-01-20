@@ -13,11 +13,15 @@ services:
     image: node:14
     working_dir: /usr/src/vuttr
     restart: always
-    command: bash -c "yarn install --production=true && yarn start"
+    command: yarn debug
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/clean-node-api
     volumes:
       - ./dist/:/usr/src/vuttr/dist/
+      - ./node_modules/:/usr/src/vuttr/node_modules/
       - ./package.json:/usr/src/vuttr/package.json
     ports:
       - "3000:3000"
+      - "9229:9229"
     links:
       - mongo
