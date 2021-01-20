@@ -24,6 +24,6 @@ export class ToolMongoRepository implements LoadToolsRepository, LoadToolByTagsR
 
   async remove (id: string): Promise<void> {
     const toolCollection = await MongoHelper.getCollection('tools')
-    await toolCollection.deleteOne({ _id: id })
+    await toolCollection.deleteOne({ _id: MongoHelper.createObjectId(id) })
   }
 }

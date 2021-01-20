@@ -1,4 +1,4 @@
-import { MongoClient, Collection } from 'mongodb'
+import { MongoClient, Collection, ObjectID } from 'mongodb'
 
 export const MongoHelper = {
   client: new MongoClient(''),
@@ -24,6 +24,10 @@ export const MongoHelper = {
       await this.connect(this.uri)
     }
     return this.client.db().collection(name)
+  },
+
+  createObjectId (id: string): ObjectID {
+    return new ObjectID(id)
   },
 
   map (data: any): any {
