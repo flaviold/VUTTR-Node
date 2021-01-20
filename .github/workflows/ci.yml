@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      
+      - name: Install dependencies
+        run: yarn
+        
+      - name: Run Tests 
+        run: yarn test:ci
+      
+      - name: Run eslint
+        run: yarn lint
+      
+      - name: Run commit lint
+        uses: wagoid/commitlint-github-action@v2
+      
+      - name: Add Coveralls
+        uses: coverallsapp/github-action@v1.1.2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

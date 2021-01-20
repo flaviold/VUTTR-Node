@@ -1,4 +1,5 @@
 # **VUTTR**
+[![Coverage Status](https://coveralls.io/repos/github/flaviold/VUTTR-Node/badge.svg?branch=main)](https://coveralls.io/github/flaviold/VUTTR-Node?branch=main)
 
 VUTTR (Very Useful Tools to Remenber) é um repositório de ferramentas úteis contendo seu nome, descrição, link e tags.
 
