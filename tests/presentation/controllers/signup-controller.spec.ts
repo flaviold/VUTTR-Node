@@ -1,6 +1,6 @@
 import { SignUpController } from '@/presentation/controllers/signup-controller'
 import { HttpRequest } from '@/presentation/protocols'
-import { AddAccountSpy } from '@/tests/presentation/mocks/mock-account'
+import { AddAccountSpy, ValidationSpy } from '@/tests/presentation/mocks'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
@@ -13,19 +13,29 @@ const makeFakeRequest = (): HttpRequest => ({
 
 interface SutTypes {
   sut: SignUpController
+  validationSpy: ValidationSpy
   addAccountSpy: AddAccountSpy
 }
 
 const makeSut = (): SutTypes => {
   const addAccountSpy = new AddAccountSpy()
-  const sut = new SignUpController(addAccountSpy)
+  const validationSpy = new ValidationSpy()
+  const sut = new SignUpController(validationSpy, addAccountSpy)
   return {
     sut,
+    validationSpy,
     addAccountSpy
   }
 }
 
 describe('SignUp Controller', () => {
+  test('Should call Validation with correct values', async () => {
+    const { sut, validationSpy } = makeSut()
+    const httpRequest = makeFakeRequest()
+    await sut.handle(httpRequest)
+    expect(validationSpy.input).toBe(httpRequest.body)
+  })
+
   test('Should call AddAccount with correct values', async () => {
     const { sut, addAccountSpy } = makeSut()
     const httpRequest = makeFakeRequest()
