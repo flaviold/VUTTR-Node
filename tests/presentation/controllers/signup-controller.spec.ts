@@ -1,7 +1,8 @@
 import { SignUpController } from '@/presentation/controllers/signup-controller'
 import { HttpRequest } from '@/presentation/protocols'
 import { AddAccountSpy, ValidationSpy } from '@/tests/presentation/mocks'
-import { badRequest } from '@/presentation/helpers/http-helper'
+import { badRequest, forbidden } from '@/presentation/helpers/http-helper'
+import { EmailInUseError } from '@/validation/errors/email-in-use-error'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
@@ -53,5 +54,12 @@ describe('SignUp Controller', () => {
       name: httpRequest.body.name,
       password: httpRequest.body.password
     })
+  })
+
+  test('Should return 403 if AddAccount returns null', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    addAccountSpy.result = null
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(forbidden(new EmailInUseError()))
   })
 })
