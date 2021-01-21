@@ -1,6 +1,7 @@
 import { AddAccount } from '@/domain/usecases'
 import { Controller, HttpRequest, HttpResponse, Validation } from '@/presentation/protocols'
-import { badRequest } from '@/presentation/helpers'
+import { badRequest, forbidden } from '@/presentation/helpers'
+import { EmailInUseError } from '@/validation/errors/email-in-use-error'
 
 export class SignUpController implements Controller {
   constructor (
@@ -14,11 +15,14 @@ export class SignUpController implements Controller {
       return badRequest(error)
     }
     const { email, name, password } = request.body
-    await this.addAccount.add({
+    const account = await this.addAccount.add({
       email,
       name,
       password
     })
+    if (!account) {
+      return forbidden(new EmailInUseError())
+    }
     return null
   }
 }
