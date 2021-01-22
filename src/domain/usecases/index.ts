@@ -1,4 +1,5 @@
 export * from './add-account'
 export * from './add-tool'
+export * from './authentication'
 export * from './load-tools'
 export * from './remove-tool'
