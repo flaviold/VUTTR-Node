@@ -1,7 +1,7 @@
 import { SignUpController } from '@/presentation/controllers/signup-controller'
 import { HttpRequest } from '@/presentation/protocols'
 import { AddAccountSpy, ValidationSpy, AuthenticationSpy } from '@/tests/presentation/mocks'
-import { badRequest, forbidden, serverError } from '@/presentation/helpers/http-helper'
+import { badRequest, forbidden, ok, serverError } from '@/presentation/helpers/http-helper'
 import { EmailInUseError } from '@/validation/errors/email-in-use-error'
 
 const makeFakeRequest = (): HttpRequest => ({
@@ -88,5 +88,11 @@ describe('SignUp Controller', () => {
     jest.spyOn(authenticationSpy, 'auth').mockImplementationOnce(() => { throw new Error() })
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(serverError())
+  })
+
+  test('Should return 200 on success', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(ok({ accessToken: authenticationSpy.result }))
   })
 })
