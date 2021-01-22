@@ -15,4 +15,4 @@
 
 > ## Exceções
 1. ✅ Retorna **400** se algum campo não for fornecido
-1. ✅ Retorna **500** na ocorrencia de um erro na busca das ferramentas
+1. ✅ Retorna **500** na ocorrencia de um erro na remoção das ferramentas
