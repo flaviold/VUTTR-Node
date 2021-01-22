@@ -1,6 +1,6 @@
 import { AddAccount, Authentication } from '@/domain/usecases'
 import { Controller, HttpRequest, HttpResponse, Validation } from '@/presentation/protocols'
-import { badRequest, forbidden, serverError } from '@/presentation/helpers'
+import { badRequest, forbidden, ok, serverError } from '@/presentation/helpers'
 import { EmailInUseError } from '@/validation/errors/email-in-use-error'
 
 export class SignUpController implements Controller {
@@ -25,11 +25,11 @@ export class SignUpController implements Controller {
       if (!account) {
         return forbidden(new EmailInUseError())
       }
-      await this.authentication.auth({
+      const accessToken = await this.authentication.auth({
         email,
         password
       })
-      return null
+      return ok({ accessToken })
     } catch {
       return serverError()
     }
