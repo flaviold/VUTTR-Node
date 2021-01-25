@@ -29,6 +29,13 @@ describe('DbAddAccount', () => {
     expect(loadAccountByEmailRepositorySpy.email).toBe(addAccount.email)
   })
 
+  test('Should throw if LoadAccountByEmailRepository throws', async () => {
+    const { sut, loadAccountByEmailRepositorySpy } = makeSut()
+    jest.spyOn(loadAccountByEmailRepositorySpy, 'loadByEmail').mockImplementationOnce(() => { throw new Error() })
+    const promise = sut.add(makeAddAccount())
+    await expect(promise).rejects.toThrow()
+  })
+
   test('Should call Hasher with correct password', async () => {
     const { sut, hasherSpy } = makeSut()
     const addAccount = makeAddAccount()
