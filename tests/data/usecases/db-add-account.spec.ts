@@ -1,8 +1,9 @@
 import { DbAddAccount } from '@/data/usecases'
-import { AddAccountRepositorySpy, HasherSpy, makeAddAccount } from '@/tests/data/mocks'
+import { AddAccountRepositorySpy, HasherSpy, LoadAccountByEmailRepositorySpy, makeAddAccount } from '@/tests/data/mocks'
 
 interface SutTypes {
   sut: DbAddAccount
+  loadAccountByEmailRepositorySpy: LoadAccountByEmailRepositorySpy
   hasherSpy: HasherSpy
   addAccountRepositorySpy: AddAccountRepositorySpy
 }
@@ -10,15 +11,24 @@ interface SutTypes {
 const makeSut = (): SutTypes => {
   const addAccountRepositorySpy = new AddAccountRepositorySpy()
   const hasherSpy = new HasherSpy()
-  const sut = new DbAddAccount(hasherSpy, addAccountRepositorySpy)
+  const loadAccountByEmailRepositorySpy = new LoadAccountByEmailRepositorySpy()
+  const sut = new DbAddAccount(loadAccountByEmailRepositorySpy, hasherSpy, addAccountRepositorySpy)
   return {
     sut,
+    loadAccountByEmailRepositorySpy,
     hasherSpy,
     addAccountRepositorySpy
   }
 }
 
 describe('DbAddAccount', () => {
+  test('Should call LoadAccountByEmailRepository with correct email', async () => {
+    const { sut, loadAccountByEmailRepositorySpy } = makeSut()
+    const addAccount = makeAddAccount()
+    await sut.add(addAccount)
+    expect(loadAccountByEmailRepositorySpy.email).toBe(addAccount.email)
+  })
+
   test('Should call Hasher with correct password', async () => {
     const { sut, hasherSpy } = makeSut()
     const addAccount = makeAddAccount()
