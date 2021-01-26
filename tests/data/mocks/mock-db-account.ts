@@ -1,13 +1,13 @@
 import { AddAccountRepository, LoadAccountByEmailRepository } from '@/data/protocols'
 import { AccountModel } from '@/domain/models/account'
 import { AddAccountModel } from '@/domain/usecases'
-import { makeAddAccount } from '@/tests/domain/mocks/mock-account'
+import { makeAccount, makeAddAccount } from '@/tests/domain/mocks/mock-account'
 
 import faker from 'faker'
 
 export class LoadAccountByEmailRepositorySpy implements LoadAccountByEmailRepository {
   email: string
-  result: AccountModel = null
+  result: AccountModel = makeAccount()
 
   async loadByEmail (email: string): Promise<AccountModel> {
     this.email = email

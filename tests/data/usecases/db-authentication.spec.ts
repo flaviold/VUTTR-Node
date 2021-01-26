@@ -30,4 +30,11 @@ describe('DbAuthentication', () => {
     const promise = sut.auth(makeAuthentication())
     await expect(promise).rejects.toThrow()
   })
+
+  test('Should return null if LoadAccountByEmailRepository returns null', async () => {
+    const { sut, loadAccountByEmailRepositorySpy } = makeSut()
+    loadAccountByEmailRepositorySpy.result = null
+    const accessToken = await sut.auth(makeAuthentication())
+    await expect(accessToken).toBeNull()
+  })
 })

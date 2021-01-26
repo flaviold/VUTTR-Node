@@ -13,6 +13,7 @@ const makeSut = (): SutTypes => {
   const addAccountRepositorySpy = new AddAccountRepositorySpy()
   const hasherSpy = new HasherSpy()
   const loadAccountByEmailRepositorySpy = new LoadAccountByEmailRepositorySpy()
+  loadAccountByEmailRepositorySpy.result = null
   const sut = new DbAddAccount(loadAccountByEmailRepositorySpy, hasherSpy, addAccountRepositorySpy)
   return {
     sut,
