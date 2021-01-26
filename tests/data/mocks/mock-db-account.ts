@@ -1,14 +1,9 @@
 import { AddAccountRepository, LoadAccountByEmailRepository } from '@/data/protocols'
 import { AccountModel } from '@/domain/models/account'
 import { AddAccountModel } from '@/domain/usecases'
+import { makeAddAccount } from '@/tests/domain/mocks/mock-account'
 
 import faker from 'faker'
-
-export const makeAddAccount = (): AddAccountModel => ({
-  name: faker.name.firstName(),
-  email: faker.internet.email(),
-  password: faker.internet.password()
-})
 
 export class LoadAccountByEmailRepositorySpy implements LoadAccountByEmailRepository {
   email: string

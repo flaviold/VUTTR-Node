@@ -1,18 +1,12 @@
 import { AccountModel } from '@/domain/models/account'
 import { AddAccount, AddAccountModel, Authentication, AuthenticationModel } from '@/domain/usecases'
+import { makeAccount } from '@/tests/domain/mocks/mock-account'
 
 import faker from 'faker'
 
-export const makeFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@mail.com',
-  password: 'valid_password'
-})
-
 export class AddAccountSpy implements AddAccount {
   input?: AddAccountModel
-  result: AccountModel = makeFakeAccount()
+  result: AccountModel = makeAccount()
 
   async add (account: AddAccountModel): Promise<AccountModel> {
     this.input = account
