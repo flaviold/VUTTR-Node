@@ -1,11 +1,20 @@
 # **Remover Ferramenta**
 
 > ## Camadas
-1. ✅ Composição
-1. ✅ RemoveToolValidator
-1. ✅ RemoveToolController
-1. ✅ RemoveTool
-1. ✅ RemoveToolRepository
+### Main:
+- ✅ Composição
+
+### Validation:
+- ✅ RemoveToolValidator
+
+### Presentation:
+- ✅ RemoveToolController
+
+### Data:
+- ✅ RemoveTool
+
+### Infra:
+- ✅ RemoveToolRepository
 
 > ## Fluxo Padrão
 1. ✅ Recebe uma requisição do tipo **DELETE** na rota **/api/tools/:id**

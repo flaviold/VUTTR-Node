@@ -1,11 +1,21 @@
 # **Adicionar Ferramenta**
 
 > ## Camadas
-1. ✅ Composição
-1. ✅ AddToolValidator
-1. ✅ AddToolController
-1. ✅ AddTool
-1. ✅ AddToolRepository
+### Main:
+- ✅ Composição
+
+### Validation:
+- ✅ AddToolValidator
+
+### Presentation:
+- ✅ AddToolController
+
+### Data:
+- ✅ AddTool
+
+### Infra:
+- ✅ AddToolRepository
+
 
 > ## Fluxo padrão
 1. ✅ Recebe uma requisição do tipo **POST** na rota **/api/tools**

@@ -1,14 +1,26 @@
 # **Cadastro de usuário**
 
 > ## Camadas
-1. ⛔ Composição
-1. ⛔ SignUpValidator
-1. ✅ SignUpController
-1. ⛔ AddAccount
-1. ⛔ Authentication
-1. ⛔ AddAccountRepository
-1. ⛔ LoadAccountByEmailRepository
-1. ⛔ UpdateAccessTokenRepository
+### Main:
+- ⛔ Composição
+
+### Validation:
+- ⛔ SignUpValidator
+
+### Presentation:
+- ✅ SignUpController
+
+### Data:
+- ✅ AddAccount
+- ⛔ Authentication
+
+### Infra:
+- ⛔ Hasher
+- ⛔ HashComparer
+- ⛔ Encrypter
+- ⛔ AddAccountRepository
+- ⛔ LoadAccountByEmailRepository
+- ⛔ UpdateAccessTokenRepository
 
 > ## Fluxo padrão
 1. ⛔ Recebe uma requisição do tipo **POST** na rota **/api/signup**
