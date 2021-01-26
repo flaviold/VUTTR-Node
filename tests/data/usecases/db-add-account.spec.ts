@@ -1,5 +1,6 @@
 import { DbAddAccount } from '@/data/usecases'
-import { AddAccountRepositorySpy, HasherSpy, LoadAccountByEmailRepositorySpy, makeAddAccount } from '@/tests/data/mocks'
+import { AddAccountRepositorySpy, HasherSpy, LoadAccountByEmailRepositorySpy } from '@/tests/data/mocks'
+import { makeAccount, makeAddAccount } from '@/tests/domain/mocks/mock-account'
 
 interface SutTypes {
   sut: DbAddAccount
@@ -34,6 +35,13 @@ describe('DbAddAccount', () => {
     jest.spyOn(loadAccountByEmailRepositorySpy, 'loadByEmail').mockImplementationOnce(() => { throw new Error() })
     const promise = sut.add(makeAddAccount())
     await expect(promise).rejects.toThrow()
+  })
+
+  test('Should return null if LoadAccountByEmailRepository returns an account', async () => {
+    const { sut, loadAccountByEmailRepositorySpy } = makeSut()
+    loadAccountByEmailRepositorySpy.result = makeAccount()
+    const account = await sut.add(makeAddAccount())
+    await expect(account).toBeNull()
   })
 
   test('Should call Hasher with correct password', async () => {
