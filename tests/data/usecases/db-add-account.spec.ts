@@ -75,4 +75,10 @@ describe('DbAddAccount', () => {
     const promise = sut.add(makeAddAccount())
     await expect(promise).rejects.toThrow()
   })
+
+  test('Should return an account on success', async () => {
+    const { sut, addAccountRepositorySpy } = makeSut()
+    const account = await sut.add(makeAddAccount())
+    await expect(account).toEqual(addAccountRepositorySpy.result)
+  })
 })
