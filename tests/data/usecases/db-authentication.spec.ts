@@ -55,4 +55,11 @@ describe('DbAuthentication', () => {
     const promise = sut.auth(makeAuthentication())
     await expect(promise).rejects.toThrow()
   })
+
+  test('Should return null if HashComparer returns false', async () => {
+    const { sut, hashComparerSpy } = makeSut()
+    hashComparerSpy.result = false
+    const accessToken = await sut.auth(makeAuthentication())
+    await expect(accessToken).toBeNull()
+  })
 })
