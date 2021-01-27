@@ -22,5 +22,6 @@ export class DbAuthentication implements Authentication {
       id: account.id
     })
     await this.updateAccessTokenRepository.updateAccessToken(account.id, accessToken)
+    return accessToken
   }
 }
