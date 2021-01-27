@@ -1,5 +1,5 @@
 import { DbAuthentication } from '@/data/usecases'
-import { EncrypterSpy, HashComparerSpy, LoadAccountByEmailRepositorySpy } from '@/tests/data/mocks'
+import { EncrypterSpy, HashComparerSpy, LoadAccountByEmailRepositorySpy, UpdateAccessTokenRepositorySpy } from '@/tests/data/mocks'
 import { makeAuthentication } from '@/tests/domain/mocks/mock-account'
 
 interface SutTypes {
@@ -7,18 +7,26 @@ interface SutTypes {
   loadAccountByEmailRepositorySpy: LoadAccountByEmailRepositorySpy
   hashComparerSpy: HashComparerSpy
   encrypterSpy: EncrypterSpy
+  updateAccessTokenRepositorySpy: UpdateAccessTokenRepositorySpy
 }
 
 const makeSut = (): SutTypes => {
+  const updateAccessTokenRepositorySpy = new UpdateAccessTokenRepositorySpy()
   const encrypterSpy = new EncrypterSpy()
   const hashComparerSpy = new HashComparerSpy()
   const loadAccountByEmailRepositorySpy = new LoadAccountByEmailRepositorySpy()
-  const sut = new DbAuthentication(loadAccountByEmailRepositorySpy, hashComparerSpy, encrypterSpy)
+  const sut = new DbAuthentication(
+    loadAccountByEmailRepositorySpy,
+    hashComparerSpy,
+    encrypterSpy,
+    updateAccessTokenRepositorySpy
+  )
   return {
     sut,
     loadAccountByEmailRepositorySpy,
     hashComparerSpy,
-    encrypterSpy
+    encrypterSpy,
+    updateAccessTokenRepositorySpy
   }
 }
 
@@ -79,5 +87,12 @@ describe('DbAuthentication', () => {
     jest.spyOn(encrypterSpy, 'encrypt').mockImplementationOnce(() => { throw new Error() })
     const promise = sut.auth(makeAuthentication())
     await expect(promise).rejects.toThrow()
+  })
+
+  test('Should call UpdateAccessTokenRepository with correct values', async () => {
+    const { sut, updateAccessTokenRepositorySpy, loadAccountByEmailRepositorySpy, encrypterSpy } = makeSut()
+    await sut.auth(makeAuthentication())
+    expect(updateAccessTokenRepositorySpy.id).toBe(loadAccountByEmailRepositorySpy.result.id)
+    expect(updateAccessTokenRepositorySpy.token).toBe(encrypterSpy.result)
   })
 })

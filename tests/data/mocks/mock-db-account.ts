@@ -1,4 +1,4 @@
-import { AddAccountRepository, LoadAccountByEmailRepository } from '@/data/protocols'
+import { AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository } from '@/data/protocols'
 import { AccountModel } from '@/domain/models/account'
 import { AddAccountModel } from '@/domain/usecases'
 import { makeAccount, makeAddAccount } from '@/tests/domain/mocks/mock-account'
@@ -25,5 +25,15 @@ export class AddAccountRepositorySpy implements AddAccountRepository {
   async add (accountData: AddAccountModel): Promise<AccountModel> {
     this.input = accountData
     return this.result
+  }
+}
+
+export class UpdateAccessTokenRepositorySpy implements UpdateAccessTokenRepository {
+  id: string
+  token: string
+
+  async updateAccessToken (id: string, token: string): Promise<void> {
+    this.id = id
+    this.token = token
   }
 }
