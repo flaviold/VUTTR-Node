@@ -48,4 +48,11 @@ describe('DbAuthentication', () => {
     expect(hashComparerSpy.value).toBe(authentication.password)
     expect(hashComparerSpy.hash).toBe(loadAccountByEmailRepositorySpy.result.password)
   })
+
+  test('Should throw if HashComparer throws', async () => {
+    const { sut, hashComparerSpy } = makeSut()
+    jest.spyOn(hashComparerSpy, 'compare').mockImplementationOnce(() => { throw new Error() })
+    const promise = sut.auth(makeAuthentication())
+    await expect(promise).rejects.toThrow()
+  })
 })
