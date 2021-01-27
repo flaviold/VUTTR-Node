@@ -12,7 +12,7 @@
 
 ### Data:
 - ✅ AddAccount
-- ⛔ Authentication
+- ✅ Authentication
 
 ### Infra:
 - ⛔ Hasher
