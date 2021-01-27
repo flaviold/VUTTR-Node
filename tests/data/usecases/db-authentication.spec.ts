@@ -1,21 +1,24 @@
 import { DbAuthentication } from '@/data/usecases'
-import { HashComparerSpy, LoadAccountByEmailRepositorySpy } from '@/tests/data/mocks'
+import { EncrypterSpy, HashComparerSpy, LoadAccountByEmailRepositorySpy } from '@/tests/data/mocks'
 import { makeAuthentication } from '@/tests/domain/mocks/mock-account'
 
 interface SutTypes {
   sut: DbAuthentication
   loadAccountByEmailRepositorySpy: LoadAccountByEmailRepositorySpy
   hashComparerSpy: HashComparerSpy
+  encrypterSpy: EncrypterSpy
 }
 
 const makeSut = (): SutTypes => {
+  const encrypterSpy = new EncrypterSpy()
   const hashComparerSpy = new HashComparerSpy()
   const loadAccountByEmailRepositorySpy = new LoadAccountByEmailRepositorySpy()
-  const sut = new DbAuthentication(loadAccountByEmailRepositorySpy, hashComparerSpy)
+  const sut = new DbAuthentication(loadAccountByEmailRepositorySpy, hashComparerSpy, encrypterSpy)
   return {
     sut,
     loadAccountByEmailRepositorySpy,
-    hashComparerSpy
+    hashComparerSpy,
+    encrypterSpy
   }
 }
 
@@ -61,5 +64,13 @@ describe('DbAuthentication', () => {
     hashComparerSpy.result = false
     const accessToken = await sut.auth(makeAuthentication())
     await expect(accessToken).toBeNull()
+  })
+
+  test('Should call Encrypter with correct value', async () => {
+    const { sut, encrypterSpy, loadAccountByEmailRepositorySpy } = makeSut()
+    await sut.auth(makeAuthentication())
+    expect(encrypterSpy.payload).toEqual({
+      id: loadAccountByEmailRepositorySpy.result.id
+    })
   })
 })
