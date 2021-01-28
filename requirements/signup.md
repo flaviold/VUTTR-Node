@@ -18,9 +18,9 @@
 - ✅ Hasher
 - ✅ HashComparer
 - ✅ Encrypter
-- ⛔ AddAccountRepository
-- ⛔ LoadAccountByEmailRepository
-- ⛔ UpdateAccessTokenRepository
+- ✅ AddAccountRepository
+- ✅ LoadAccountByEmailRepository
+- ✅ UpdateAccessTokenRepository
 
 > ## Fluxo padrão
 1. ⛔ Recebe uma requisição do tipo **POST** na rota **/api/signup**
@@ -29,9 +29,9 @@
 1. ⛔ Valida que o campo **email** é um e-mail válido
 1. ✅ Valida se já existe um usuário com o email fornecido
 1. ✅ Gera uma senha criptografada
-1. ⛔ Cria uma conta para o usuário com os dados informados
-1. ⛔ Gera um token de acesso a partir do ID do usuário
-1. ⛔ Atualiza os dados do usuário com o token de acesso gerado
+1. ✅ Cria uma conta para o usuário com os dados informados
+1. ✅ Gera um token de acesso a partir do ID do usuário
+1. ✅ Atualiza os dados do usuário com o token de acesso gerado
 1. ✅ Retorna 200 com o token de acesso
 
 > ## Exceções:
