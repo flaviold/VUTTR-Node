@@ -17,7 +17,7 @@
 ### Infra:
 - ✅ Hasher
 - ✅ HashComparer
-- ⛔ Encrypter
+- ✅ Encrypter
 - ⛔ AddAccountRepository
 - ⛔ LoadAccountByEmailRepository
 - ⛔ UpdateAccessTokenRepository
