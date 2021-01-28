@@ -1,4 +1,4 @@
-import { BcryptAdapter } from '@/infra/db/cryptography/bcrypt-adapter'
+import { BcryptAdapter } from '@/infra/cryptography/bcrypt-adapter'
 
 import bcrypt from 'bcrypt'
 import faker from 'faker'
