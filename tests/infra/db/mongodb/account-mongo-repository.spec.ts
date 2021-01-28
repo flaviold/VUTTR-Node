@@ -43,4 +43,17 @@ describe('AccountMongoRepository', () => {
       expect(account.password).toBe(addAccount.password)
     })
   })
+
+  describe('loadByEmail()', () => {
+    test('Should return an account on success', async () => {
+      const sut = makeSut()
+      const addAccount = makeAddAccount()
+      await accountCollection.insertOne(addAccount)
+      const account = await sut.loadByEmail(addAccount.email)
+      expect(account.id).toBeTruthy()
+      expect(account.name).toBe(addAccount.name)
+      expect(account.email).toBe(addAccount.email)
+      expect(account.password).toBe(addAccount.password)
+    })
+  })
 })
