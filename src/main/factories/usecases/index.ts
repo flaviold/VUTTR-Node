@@ -1,3 +1,5 @@
+export * from './add-account-factory'
 export * from './add-tool-factory'
 export * from './load-tools-factory'
 export * from './remove-tool-factory'
+export * from './authentication-factory'
