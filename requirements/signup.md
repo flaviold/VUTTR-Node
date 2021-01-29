@@ -2,10 +2,10 @@
 
 > ## Camadas
 ### Main:
-- ⛔ Composição
+- ✅ Composição
 
 ### Validation:
-- ⛔ SignUpValidator
+- ✅ SignUpValidator
 
 ### Presentation:
 - ✅ SignUpController
@@ -23,10 +23,10 @@
 - ✅ UpdateAccessTokenRepository
 
 > ## Fluxo padrão
-1. ⛔ Recebe uma requisição do tipo **POST** na rota **/api/signup**
-1. ⛔ Valida dados obrigatórios **name**, **email**, **password** e **passwordConfirmation**
-1. ⛔ Valida que **password** e **passwordConfirmation** são iguais
-1. ⛔ Valida que o campo **email** é um e-mail válido
+1. ✅ Recebe uma requisição do tipo **POST** na rota **/api/signup**
+1. ✅ Valida dados obrigatórios **name**, **email**, **password** e **passwordConfirmation**
+1. ✅ Valida que **password** e **passwordConfirmation** são iguais
+1. ✅ Valida que o campo **email** é um e-mail válido
 1. ✅ Valida se já existe um usuário com o email fornecido
 1. ✅ Gera uma senha criptografada
 1. ✅ Cria uma conta para o usuário com os dados informados
