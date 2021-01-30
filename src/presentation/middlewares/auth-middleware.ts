@@ -1,7 +1,7 @@
 import { LoadAccountByToken } from '@/domain/usecases'
 import { HttpRequest, HttpResponse, Middleware } from '@/presentation/protocols'
 import { AccessDeniedError } from '@/validation/errors'
-import { forbidden, serverError } from '@/presentation/helpers'
+import { forbidden, ok, serverError } from '@/presentation/helpers'
 
 export class AuthMiddleware implements Middleware {
   constructor (
@@ -19,7 +19,7 @@ export class AuthMiddleware implements Middleware {
       if (!account) {
         return forbidden(new AccessDeniedError())
       }
-      return null
+      return ok({ accountId: account.id })
     } catch {
       return serverError()
     }
