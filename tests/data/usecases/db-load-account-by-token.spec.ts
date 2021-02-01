@@ -24,4 +24,11 @@ describe('DbLoadAccountByToken', () => {
     await sut.load(token)
     expect(decrypterSpy.token).toBe(token)
   })
+
+  test('Should return null if Decrypter returns null', async () => {
+    const { sut, decrypterSpy } = makeSut()
+    decrypterSpy.result = null
+    const account = await sut.load(faker.random.uuid())
+    expect(account).toBeNull()
+  })
 })
