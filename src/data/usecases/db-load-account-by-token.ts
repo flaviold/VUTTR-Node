@@ -18,6 +18,6 @@ export class DbLoadAccountByToken implements LoadAccountByToken {
     if (!tokenObj) {
       return null
     }
-    await this.loadAccountByTokenRepository.loadByToken(token)
+    return await this.loadAccountByTokenRepository.loadByToken(token)
   }
 }
