@@ -62,4 +62,10 @@ describe('DbLoadAccountByToken', () => {
     const account = await sut.load(faker.random.uuid())
     expect(account).toBeNull()
   })
+
+  test('Should return an account on success', async () => {
+    const { sut, loadAccountByTokenRepositorySpy } = makeSut()
+    const account = await sut.load(faker.random.uuid())
+    expect(account).toEqual(loadAccountByTokenRepositorySpy.result)
+  })
 })
