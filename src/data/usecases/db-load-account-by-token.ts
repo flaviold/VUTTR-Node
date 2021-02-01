@@ -1,10 +1,11 @@
 import { AccountModel } from '@/domain/models/account'
 import { LoadAccountByToken } from '@/domain/usecases'
-import { Decrypter } from '@/data/protocols'
+import { Decrypter, LoadAccountByTokenRepository } from '@/data/protocols'
 
 export class DbLoadAccountByToken implements LoadAccountByToken {
   constructor (
-    private readonly decrypter: Decrypter
+    private readonly decrypter: Decrypter,
+    private readonly loadAccountByTokenRepository: LoadAccountByTokenRepository
   ) {}
 
   async load (token: string): Promise<AccountModel> {
@@ -17,5 +18,6 @@ export class DbLoadAccountByToken implements LoadAccountByToken {
     if (!tokenObj) {
       return null
     }
+    await this.loadAccountByTokenRepository.loadByToken(token)
   }
 }
