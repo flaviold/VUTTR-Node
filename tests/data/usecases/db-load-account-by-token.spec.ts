@@ -31,4 +31,11 @@ describe('DbLoadAccountByToken', () => {
     const account = await sut.load(faker.random.uuid())
     expect(account).toBeNull()
   })
+
+  test('Should return null if Decrypter throws', async () => {
+    const { sut, decrypterSpy } = makeSut()
+    jest.spyOn(decrypterSpy, 'decrypt').mockImplementationOnce(() => { throw new Error() })
+    const account = await sut.load(faker.random.uuid())
+    expect(account).toBeNull()
+  })
 })
