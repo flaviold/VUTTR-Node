@@ -71,4 +71,20 @@ describe('AccountMongoRepository', () => {
       expect(updatedAccount.accessToken).toBe(token)
     })
   })
+
+  describe('loadByToken()', () => {
+    test('Should return an account on success', async () => {
+      const sut = makeSut()
+      const addAccount = {
+        ...makeAddAccount(),
+        accessToken: faker.random.uuid()
+      }
+      await accountCollection.insertOne(addAccount)
+      const account = await sut.loadByToken(addAccount.accessToken)
+      expect(account.id).toBeTruthy()
+      expect(account.name).toBe(addAccount.name)
+      expect(account.email).toBe(addAccount.email)
+      expect(account.password).toBe(addAccount.password)
+    })
+  })
 })
