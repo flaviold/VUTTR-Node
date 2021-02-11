@@ -8,7 +8,7 @@
 - ⛔ LoginValidator
 
 ### Presentation:
-- ⛔ LoginController
+- ✅ LoginController
 
 ### Data:
 - ✅ Authentication
@@ -27,12 +27,12 @@
 1. ✅ Valida a senha passada com a senha do usuário
 1. ✅ Gera um token de acesso a partir do ID do usuário
 1. ✅ Atualiza os dados do usuário com o token de acesso gerado
-1. ⛔ Retorna 200 com o token de acesso
+1. ✅ Retorna 200 com o token de acesso
 
 > ## Exceções:
-1. ⛔ Retorna erro **400** se **email** ou **password** não forem fornecidos pelo client
-1. ⛔ Retorna erro **400** se o campo **email** for um e-mail inválido
-1. ⛔ Retorna erro **401** se não encontrar um usuário com os dados fornecidos
-1. ⛔ Retorna erro **401** se a senha não estiver correta
-1. ⛔ Retorna erro **500** se der erro ao tentar gerar o token de acesso
-1. ⛔ Retorna erro **500** na ocorrencia de um erro na criação do token
+1. ✅ Retorna erro **400** se **email** ou **password** não forem fornecidos pelo client
+1. ✅ Retorna erro **400** se o campo **email** for um e-mail inválido
+1. ✅ Retorna erro **401** se não encontrar um usuário com os dados fornecidos
+1. ✅ Retorna erro **401** se a senha não estiver correta
+1. ✅ Retorna erro **500** se der erro ao tentar gerar o token de acesso
+1. ✅ Retorna erro **500** na ocorrencia de um erro na criação do token
