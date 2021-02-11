@@ -1,5 +1,5 @@
 import { Controller, HttpRequest, HttpResponse, Validation } from '@/presentation/protocols'
-import { badRequest } from '@/presentation/helpers'
+import { badRequest, unauthorized } from '@/presentation/helpers'
 import { Authentication } from '@/domain/usecases'
 
 export class LoginController implements Controller {
@@ -14,10 +14,13 @@ export class LoginController implements Controller {
       return badRequest(error)
     }
     const { email, password } = request.body
-    await this.authentication.auth({
+    const accessToken = await this.authentication.auth({
       email,
       password
     })
+    if (!accessToken) {
+      return unauthorized()
+    }
     return null
   }
 }
