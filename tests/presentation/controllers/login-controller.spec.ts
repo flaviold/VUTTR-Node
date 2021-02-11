@@ -1,7 +1,7 @@
 import { HttpRequest } from '@/presentation/protocols'
 import { LoginController } from '@/presentation/controllers'
 import { ValidationSpy, AuthenticationSpy } from '@/tests/presentation/mocks'
-import { badRequest, unauthorized } from '@/presentation/helpers'
+import { badRequest, serverError, unauthorized } from '@/presentation/helpers'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
@@ -59,5 +59,12 @@ describe('LoginController', () => {
     authenticationSpy.result = null
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(unauthorized())
+  })
+
+  test('Should return 500 if Authentication throws', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    jest.spyOn(authenticationSpy, 'auth').mockImplementationOnce(() => { throw new Error() })
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(serverError())
   })
 })
