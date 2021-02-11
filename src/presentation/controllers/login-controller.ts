@@ -1,4 +1,5 @@
 import { Controller, HttpRequest, HttpResponse, Validation } from '@/presentation/protocols'
+import { badRequest } from '@/presentation/helpers'
 
 export class LoginController implements Controller {
   constructor (
@@ -6,7 +7,10 @@ export class LoginController implements Controller {
   ) {}
 
   async handle (request: HttpRequest): Promise<HttpResponse> {
-    await this.validation.validate(request.body)
+    const error = await this.validation.validate(request.body)
+    if (error) {
+      return badRequest(error)
+    }
     return null
   }
 }
