@@ -1,6 +1,6 @@
 import { HttpRequest } from '@/presentation/protocols'
 import { LoginController } from '@/presentation/controllers'
-import { ValidationSpy } from '@/tests/presentation/mocks'
+import { ValidationSpy, AuthenticationSpy } from '@/tests/presentation/mocks'
 import { badRequest } from '@/presentation/helpers'
 
 const makeFakeRequest = (): HttpRequest => ({
@@ -15,14 +15,17 @@ const makeFakeRequest = (): HttpRequest => ({
 interface SutTypes {
   sut: LoginController
   validationSpy: ValidationSpy
+  authenticationSpy: AuthenticationSpy
 }
 
 const makeSut = (): SutTypes => {
+  const authenticationSpy = new AuthenticationSpy()
   const validationSpy = new ValidationSpy()
-  const sut = new LoginController(validationSpy)
+  const sut = new LoginController(validationSpy, authenticationSpy)
   return {
     sut,
-    validationSpy
+    validationSpy,
+    authenticationSpy
   }
 }
 
@@ -39,5 +42,15 @@ describe('LoginController', () => {
     validationSpy.error = new Error()
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(badRequest(new Error()))
+  })
+
+  test('Should call Authentication with correct values', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    const request = makeFakeRequest()
+    await sut.handle(request)
+    expect(authenticationSpy.input).toEqual({
+      email: request.body.email,
+      password: request.body.password
+    })
   })
 })
