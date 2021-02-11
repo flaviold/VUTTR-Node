@@ -1,6 +1,7 @@
 import { HttpRequest } from '@/presentation/protocols'
 import { LoginController } from '@/presentation/controllers'
 import { ValidationSpy } from '@/tests/presentation/mocks'
+import { badRequest } from '@/presentation/helpers'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
@@ -31,5 +32,12 @@ describe('LoginController', () => {
     const httpRequest = makeFakeRequest()
     await sut.handle(httpRequest)
     expect(validationSpy.input).toBe(httpRequest.body)
+  })
+
+  test('Should return 400 if Validation fails', async () => {
+    const { sut, validationSpy } = makeSut()
+    validationSpy.error = new Error()
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(badRequest(new Error()))
   })
 })
