@@ -1,7 +1,7 @@
 import { HttpRequest } from '@/presentation/protocols'
 import { LoginController } from '@/presentation/controllers'
 import { ValidationSpy, AuthenticationSpy } from '@/tests/presentation/mocks'
-import { badRequest } from '@/presentation/helpers'
+import { badRequest, unauthorized } from '@/presentation/helpers'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
@@ -52,5 +52,12 @@ describe('LoginController', () => {
       email: request.body.email,
       password: request.body.password
     })
+  })
+
+  test('Should return 401 if Authentication returns null', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    authenticationSpy.result = null
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(unauthorized())
   })
 })
